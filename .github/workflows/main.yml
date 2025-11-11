@@ -39,5 +39,5 @@ jobs:
           context: .
           push: true
           tags: |
-            reandreas/devops-course-repo/weatherapp:${{ steps.version.outputs.version }}
-            reandreas/devops-course-repo/weatherapp:latest
+            reandreas/devops-course-repo:${{ steps.version.outputs.version }}
+            reandreas/devops-course-repo:latest
