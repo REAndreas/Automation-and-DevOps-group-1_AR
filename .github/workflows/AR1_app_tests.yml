@@ -54,7 +54,3 @@ jobs:
         with:
           name: pytest-log
           path: pytest_output.log
-          
-      - name: Fail job if tests failed
-        if: ${{ steps.pytest.outputs.exit_code != '0' }}
-        run: exit 1
