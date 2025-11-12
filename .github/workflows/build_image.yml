@@ -1,8 +1,8 @@
-name: ci
+name: Build and push docker image
 
 on:
   workflow_run:
-    workflows: ["Run Unit Test via Pytest"]
+    workflows: ["Test app"]
     types:
       - completed
 
