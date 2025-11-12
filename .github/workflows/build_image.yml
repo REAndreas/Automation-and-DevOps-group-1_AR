@@ -5,6 +5,9 @@ on:
     workflows: ["Test app"]
     types:
       - completed
+env:
+  IMAGE_NAME: reandreas/devops-course-repo
+
 
 jobs:
   docker:
@@ -39,5 +42,5 @@ jobs:
           context: .
           push: true
           tags: |
-            reandreas/devops-course-repo:${{ steps.version.outputs.version }}
-            reandreas/devops-course-repo:latest
+            ${{ env.IMAGE_NAME }}:${{ steps.version.outputs.version }}
+            ${{ env.IMAGE_NAME }}:latest
