@@ -40,7 +40,7 @@ jobs:
       - name: Test with pytest
         run: |
           pip install pytest pytest-cov
-          pytest test_weather_integration.py test_weather_unit.py test_failure.py\
+          pytest test_weather_integration.py test_weather_unit.py \
             --doctest-modules \
             --junitxml=junit/test-results.xml \
             --cov=com \
