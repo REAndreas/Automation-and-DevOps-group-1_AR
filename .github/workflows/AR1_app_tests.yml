@@ -18,13 +18,16 @@ on:
           - 'false'
 
 jobs:
-  build:
+  run_tests:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         python-version: ["3.13"]
 
     steps:
+      - name: Starting tests
+        run: echo "Starting testing for the weather app"
+    
       - uses: actions/checkout@v5
 
       - name: Set up Python
@@ -54,3 +57,12 @@ jobs:
         with:
           name: pytest-log
           path: pytest_output.log
+
+  job_complete:
+    runs-on: ubuntu-latest
+    needs: run_tests
+    if: success()
+
+    steps:
+      - name: Tests successfull
+        run: echo "Jobs done! Proceeding to build and push image"
