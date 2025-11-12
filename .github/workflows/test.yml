@@ -1,10 +1,21 @@
-name: Run Unit Test via Pytest
+name: Test app
 
 on:
   push:
+    paths: 
+      - '**.py'
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      log_errors:
+        description: 'If set to True, receive a detailed log on test failure'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
 
 jobs:
   build:
@@ -34,4 +45,17 @@ jobs:
             --junitxml=junit/test-results.xml \
             --cov=com \
             --cov-report=xml \
-            --cov-report=html
+            --cov-report=html > pytest_output.log 2>&1
+            
+      - name: Upload pytest log
+        if: |
+          github.event_name == 'push' ||
+          (github.event_name == 'workflow_dispatch' && github.event.inputs.log_errors == 'true')
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-log
+          path: pytest_output.log
+
+      - name: Fail job if tests failed
+        if: steps.pytest.outcome == 'failure'
+        run: exit 1
