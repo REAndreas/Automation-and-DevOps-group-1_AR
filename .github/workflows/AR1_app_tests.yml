@@ -56,4 +56,7 @@ jobs:
         with:
           name: pytest-log
           path: pytest_output.log
-
+          
+      - name: Fail job if tests failed
+        if: steps.pytest.outcome == 'failure'
+        run: exit 1
