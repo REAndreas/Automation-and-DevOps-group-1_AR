@@ -52,7 +52,7 @@ jobs:
         
             
       - name: Upload pytest log
-        if: always() && failure() && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.log_errors == 'true'))
+        if: always() && (github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.log_errors == 'true'))
         uses: actions/upload-artifact@v4
         with:
           name: pytest-log
